@@ -1,0 +1,9 @@
+INSERT INTO seguridad.roles(nombre)
+VALUES
+('ADMINISTRADOR'),
+('ORGANIZADOR'),
+('ENTRENADOR'),
+('ARBITRO'),
+('ESTADIGRAFO'),
+('JUGADOR'),
+('ESPECTADOR');

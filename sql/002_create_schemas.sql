@@ -1,6 +1,0 @@
-CREATE SCHEMA core;
-CREATE SCHEMA sports;
-CREATE SCHEMA payments;
-CREATE SCHEMA notifications;
-CREATE SCHEMA audit;
-CREATE SCHEMA warehouse;

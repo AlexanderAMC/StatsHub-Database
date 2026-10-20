@@ -1,16 +1,13 @@
-# Arquitectura de Base de Datos
-
-Motor:
-PostgreSQL 17
-
-Modelo:
-OLTP + OLAP
+Frontend React
+      ↓
+Node.js API
+      ↓
+PostgreSQL
 
 Schemas:
 
-core
-sports
-payments
-notifications
-audit
-warehouse
+seguridad
+deportivo
+pagos
+auditoria
+analytics

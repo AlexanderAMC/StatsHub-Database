@@ -1,4 +1,12 @@
 -- =====================================
+-- DATOS DE PRUEBA
+-- =====================================
+-- Requisitos: ejecutar antes 01_roles.sql, 02_usuarios.sql y 03_categorias.sql
+-- (02 crea jugador1..3@statshub.cl y organizador@statshub.cl, que este archivo referencia).
+-- IMPORTANTE: ejecutar SOLO sobre una base recién creada. Usa ids fijos (equipos 1-6,
+-- torneos 1-2, jugadores 1-3) y no es re-ejecutable; hacerlo idempotente es parte de P1-1.
+
+-- =====================================
 -- EQUIPOS
 -- =====================================
 

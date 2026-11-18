@@ -1,5 +1,9 @@
 *.backup
 *.bak
+*.dump
+backup.sql
+backup.txt
+backups/
 *.tmp
 *.log
 .env

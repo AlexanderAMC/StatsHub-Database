@@ -54,12 +54,14 @@ VALUES
 INSERT INTO deportivo.jugadores
 (
     usuario_id,
+    nombre,
     rut,
     fecha_nacimiento,
     posicion
 )
 SELECT
     id,
+    nombre || ' ' || apellido,
     '11111111-1',
     '2000-05-10',
     'DELANTERO'
@@ -69,12 +71,14 @@ WHERE correo='jugador1@statshub.cl';
 INSERT INTO deportivo.jugadores
 (
     usuario_id,
+    nombre,
     rut,
     fecha_nacimiento,
     posicion
 )
 SELECT
     id,
+    nombre || ' ' || apellido,
     '22222222-2',
     '1999-08-22',
     'MEDIOCAMPISTA'
@@ -84,12 +88,14 @@ WHERE correo='jugador2@statshub.cl';
 INSERT INTO deportivo.jugadores
 (
     usuario_id,
+    nombre,
     rut,
     fecha_nacimiento,
     posicion
 )
 SELECT
     id,
+    nombre || ' ' || apellido,
     '33333333-3',
     '2001-01-15',
     'DEFENSA'
@@ -293,7 +299,7 @@ INSERT INTO pagos.transacciones
 SELECT
     id,
     15000,
-    'APROBADO',
+    'PAGADO',
     'FLOW001'
 FROM seguridad.usuarios
 WHERE correo='organizador@statshub.cl';

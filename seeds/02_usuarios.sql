@@ -21,7 +21,9 @@ FROM (
         ('Jugador', 'Uno',  'jugador1@statshub.cl',    'JUGADOR'),
         ('Jugador', 'Dos',  'jugador2@statshub.cl',    'JUGADOR'),
         ('Jugador', 'Tres', 'jugador3@statshub.cl',    'JUGADOR'),
-        ('Organizador', 'Prueba', 'organizador@statshub.cl', 'ORGANIZADOR')
+        ('Organizador', 'Prueba', 'organizador@statshub.cl', 'ORGANIZADOR'),
+        ('Arbitro', 'Prueba', 'arbitro@statshub.cl', 'ARBITRO'),
+        ('Estadigrafo', 'Prueba', 'estadigrafo@statshub.cl', 'ESTADIGRAFO')
 ) AS v(nombre, apellido, correo, rol)
 JOIN seguridad.roles r ON r.nombre = v.rol
 ON CONFLICT (correo) DO NOTHING;

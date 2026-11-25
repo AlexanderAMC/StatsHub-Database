@@ -22,6 +22,12 @@ async function main() {
           database: process.env.DB_NAME,
           user: process.env.DB_USER,
           password: process.env.DB_PASSWORD,
+          // Amazon RDS exige SSL (ver DB_SSL / DB_SSL_CA en .env.example).
+          ssl: process.env.DB_SSL === 'true'
+            ? (process.env.DB_SSL_CA
+              ? { ca: fs.readFileSync(process.env.DB_SSL_CA, 'utf8'), rejectUnauthorized: true }
+              : { rejectUnauthorized: false })
+            : undefined,
         }
   );
   await client.connect();

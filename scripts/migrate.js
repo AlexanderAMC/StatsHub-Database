@@ -17,7 +17,14 @@ function buildDatabaseUrl() {
     process.exit(1);
   }
   const enc = encodeURIComponent;
-  return `postgres://${enc(DB_USER)}:${enc(DB_PASSWORD)}@${DB_HOST}:${DB_PORT}/${enc(DB_NAME)}`;
+  return `postgres://${enc(DB_USER)}:${enc(DB_PASSWORD)}@${DB_HOST}:${DB_PORT}/${enc(DB_NAME)}${sslQuery()}`;
+}
+
+// Amazon RDS exige SSL (DB_SSL=true). Con DB_SSL_CA (certificado de AWS) se verifica el servidor.
+function sslQuery() {
+  if (process.env.DB_SSL !== 'true') return '';
+  if (process.env.DB_SSL_CA) return `?sslmode=verify-full&sslrootcert=${encodeURIComponent(process.env.DB_SSL_CA)}`;
+  return '?sslmode=no-verify';
 }
 
 const bin = path.join(__dirname, '..', 'node_modules', 'node-pg-migrate', 'bin', 'node-pg-migrate.js');

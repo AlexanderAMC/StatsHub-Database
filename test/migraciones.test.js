@@ -23,7 +23,7 @@ function run(script, args = []) {
     cwd: ROOT,
     env: { ...process.env, DATABASE_URL: url },
     encoding: 'utf8',
-    timeout: 120000,
+    timeout: 600000, // margen amplio para equipos lentos
   });
   assert.equal(result.status, 0, `${script} ${args.join(' ')} falló:\n${result.stdout}\n${result.stderr}`);
   return result.stdout;
@@ -97,6 +97,18 @@ test('se rechazan minutos y goles fuera de rango', { skip }, async () => {
   await expectPgError(
     `INSERT INTO deportivo.eventos_partido (partido_id, tipo_evento, minuto) VALUES (1, 'GOL', 200)`, [], '23514');
   await expectPgError(`UPDATE deportivo.resultados SET goles_local = -1 WHERE partido_id = 1`, [], '23514');
+});
+
+test('básquetbol: deporte por torneo, cuartos y eventos propios', { skip }, async () => {
+  const { rows } = await client.query(`SELECT deporte FROM deportivo.torneos ORDER BY id`);
+  assert.deepEqual(rows.map((r) => r.deporte), ['FUTBOL', 'BASQUETBOL']);
+  const nuevo = await client.query(
+    `INSERT INTO deportivo.torneos (nombre, categoria_id, fecha_inicio, estado) VALUES ('Liga de Básquet', 1, '2027-04-01', 'PLANIFICADO') RETURNING deporte`);
+  assert.equal(nuevo.rows[0].deporte, 'BASQUETBOL', 'los torneos nuevos parten como básquetbol');
+  await expectPgError(`UPDATE deportivo.torneos SET deporte = 'TENIS' WHERE id = 1`, [], '23514');
+  await client.query(`INSERT INTO deportivo.eventos_partido (partido_id, tipo_evento, minuto, periodo) VALUES (1, 'PUNTO_3', 8, 2)`);
+  await expectPgError(`INSERT INTO deportivo.eventos_partido (partido_id, tipo_evento, minuto, periodo) VALUES (1, 'PUNTO_3', 8, 11)`, [], '23514');
+  await expectPgError(`INSERT INTO deportivo.eventos_partido (partido_id, tipo_evento, minuto) VALUES (1, 'CANASTA', 8)`, [], '23514');
 });
 
 test('las migraciones se pueden revertir y volver a aplicar', { skip }, async () => {

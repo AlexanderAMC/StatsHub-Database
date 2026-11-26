@@ -29,7 +29,8 @@ INSERT INTO deportivo.torneos
     categoria_id,
     fecha_inicio,
     fecha_fin,
-    estado
+    estado,
+    deporte
 )
 VALUES
 (
@@ -37,14 +38,16 @@ VALUES
     1,
     '2027-03-01',
     '2027-06-30',
-    'ACTIVO'
+    'ACTIVO',
+    'FUTBOL'
 ),
 (
     'Liga Metropolitana 2027',
     2,
     '2027-08-01',
     '2027-12-30',
-    'PLANIFICADO'
+    'PLANIFICADO',
+    'BASQUETBOL'
 );
 
 -- =====================================
